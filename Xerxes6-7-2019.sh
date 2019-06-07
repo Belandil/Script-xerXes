@@ -2,7 +2,7 @@
 #***********************************************************************|
 # Project           : Vulnhub VM scanner							    |
 # Program name      : xerXes.sh 										|
-# Author            : x8el4nd1l											|
+# Author            : Belandil											|
 # Date created      : 20190509											|	
 # Purpose           : Scans differents services on the definned target 	|
 #					  whith its IP and Machine Name in parameter. 		|
@@ -10,7 +10,7 @@
 # 																		|
 # Revision History  :													|
 # Date        Author      Ref    Details info						 	|
-# 20190509    x8el4nd1l    1     First part is reliable :				|
+# 20190509    Belandil    1     First part is reliable :				|
 #								- Nmap + Searchsploit OS + Kernel		|
 #  								- Gobuster depending on nmap services   |
 #												 						|
