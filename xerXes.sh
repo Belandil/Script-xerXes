@@ -142,7 +142,7 @@ cat "$pathName"/gobuster"$machineName".txt
 portsGobuster=$(grep Url/Domain "$pathName"/gobuster"$machineName".txt | cut -d ':' -f 4 | cut -d '/' -f 1 | sort -u)
 portGobusterLines=$(grep Url/Domain "$pathName"/gobuster"$machineName".txt | cut -d ':' -f 4 | cut -d '/' -f 1 | sort -u | wc -l)
 
-echo -e "\nThis is the end"
+echo -e "\nThis is the end by 04 June 2019"
 
 
 << Comment
