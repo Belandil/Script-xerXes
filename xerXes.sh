@@ -143,6 +143,9 @@ cat "$pathName"/gobuster"$machineName".txt
 portsGobuster=$(grep Url/Domain "$pathName"/gobuster"$machineName".txt | cut -d ':' -f 4 | cut -d '/' -f 1 | sort -u)
 portGobusterLines=$(grep Url/Domain "$pathName"/gobuster"$machineName".txt | cut -d ':' -f 4 | cut -d '/' -f 1 | sort -u | wc -l)
 
+echo -e "\nThis is the end"
+
+
 << Comment
 i=1
 while [ "$i" -le "$portGobusterLines" ]; do
@@ -160,8 +163,6 @@ done
 i=0
 
 Comment
-
-echo -e "\nThis is the end"
 
 #set +e # Needed bcause grep could not get a wp word
 #grep -E 'wordpress|wp' "$pathName"/gobuster"$machineName"
