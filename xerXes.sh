@@ -1,20 +1,20 @@
 #!/usr/bin/bash
 #***********************************************************************|
-# Project           : Vulnhub VM scanner							    |
-# Program name      : xerXes.sh 										|
-# Author            : Belandil											|
-# Date created      : 20190509											|	
+# Project           : Vulnhub VM scanner				|
+# Program name      : xerXes.sh 					|
+# Author            : Belandil						|
+# Date created      : 20190509						|	
 # Purpose           : Scans differents services on the definned target 	|
-#					  whith its IP and Machine Name in parameter. 		|
-#					  Prepare priv-Esc thanks to OS vulnerability search|
-# 																		|
-# Revision History  :													|
-# Date        Author      Ref    Details info						 	|
-# 20190509    Belandil    1     First part is reliable :				|
-#								- Nmap + Searchsploit OS + Kernel		|
-#  								- Gobuster depending on nmap services   |
-#												 						|
-#																		|
+#			whith its IP and Machine Name in parameter. 	|
+#		     Prepare priv-Esc thanks to OS vulnerability search |
+# 									|
+# Revision History  :							|
+# Date        Author      Ref    Details info				|
+# 20190509    Belandil    1     First part is reliable :		|
+#			- Nmap + Searchsploit OS + Kernel		|
+#  			- Gobuster depending on nmap services  		|
+#									|			 						|
+#									|									|
 #***********************************************************************|
 
 set -euo pipefail
