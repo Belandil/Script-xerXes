@@ -35,7 +35,7 @@ else
 	exit 1
 fi
 
-pathName=~/Desktop/vm-vulnhub/"$FolderName"
+pathName=~/Desktop/vm-vulnhub/"$machineName"
 mkdir -p $pathName
 echo "Variables Created"
 a=$( touch $pathName/info${machineName}.txt )
