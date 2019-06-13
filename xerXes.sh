@@ -21,7 +21,6 @@ set -euo pipefail
 IFS=$'\n\t'
 ip=${1:-}
 machineName=${2:-}_autoXerxes
-FolderName=${2:-}_autoXerxes
 
 RED='\033[0;31m'
 GREEN='\033[0;32m'
