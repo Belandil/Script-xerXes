@@ -63,7 +63,7 @@ cat "$pathName"/flaw"$machineName".txt
 
 OS_VERSION=$( egrep '^OS details:' "$pathName"/flaw"$machineName".txt | cut -d ' ' -f 3-4 )
 echo "Searchsploit with the OS VERSION: $OS_VERSION"
-searchsploit "$OS_VERSION"
+searchsploit Linux Kernel "$OS_VERSION" || grep "-"
 
 
 serverHeader=$(grep -E 'http-server-header:' "$pathName"/flaw"$machineName".txt | cut -d ' ' -f 2 | sed -e 's/\// /g' | sort -u)
