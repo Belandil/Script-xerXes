@@ -121,13 +121,13 @@ while [ "$i" -le "$numberLines" ]; do
 	#sleep 5s
 	while [ "$j" -le "$directroriesTotalLines" ]; do
 		#j=1
-		echo "Debut j value : $j"
+		#echo "Debut j value : $j"
 		getLines=$(grep -E '^/' "$pathName"/gobuster"$machineName"-port"$q".txt | sort -k 3,3 | awk '{print $1}' | head -n "$j" | tail -n 1) #browse inside directories file and get each lines depending on j value
 		echo -e "\n The value of getLines is : $getLines"
 		sleep 2s
 		firefox -new-tab "http://$ip:$q$getLines"&
 		j=$[$j+1]
-		echo "Fin j value : $j"
+		echo "New tqb opened : http://$ip:$q$getLines"
 	done
 	i=$[$i+1]
 done
