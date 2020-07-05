@@ -10,7 +10,7 @@
 # 										|
 # Revision History  :								|
 # Date        	Author      	Ref	Details info				|
-# 20190509    	Belandil   	 1 	First part is reliable :		|
+# 20190509    	Belandil   	1 	First part is reliable :		|
 #					- Nmap + Searchsploit OS + Kernel	|
 #  					- Gobuster depending on nmap services  	|
 # 20200705	Belandil	2	- Improvment searchsploit		|
