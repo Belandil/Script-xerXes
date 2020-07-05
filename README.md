@@ -27,3 +27,6 @@ Thanks to using it and have fun on CTF machines !
 $ip is the IP address of the targeted machine
 
 $machineName is the name of directories and files created for a good organisation of reports  
+
+# Exemple
+./xerXes.sh 10.0.0.10 vulnhubMachine-Kioptrix
