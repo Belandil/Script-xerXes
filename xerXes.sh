@@ -1,21 +1,22 @@
 #!/usr/bin/bash
-#***********************************************************************|
-# Project           : Vulnhub VM scanner				|
-# Program name      : xerXes.sh 					|
-# Author            : Belandil						|
-# Date created      : 20190509						|	
-# Purpose           : Scans differents services on the definned target 	|
-#			whith its IP and Machine Name in parameter. 	|
-#		     Prepare priv-Esc thanks to OS vulnerability search |
-# 									|
-# Revision History  :							|
-# Date        Author      Ref    Details info				|
-# 20190509    Belandil    1     First part is reliable :		|
-#			- Nmap + Searchsploit OS + Kernel		|
-#  			- Gobuster depending on nmap services  		|
-#									|			 						|
-#									|									|
-#***********************************************************************|
+#*******************************************************************************|
+# Project           : Vulnhub VM scanner					|
+# Program name      : xerXes.sh 						|
+# Author            : Belandil							|
+# Date created      : 20190509							|	
+# Purpose           : Scans differents services on the definned target 		|
+#			whith its IP and Machine Name in parameter. 		|
+#		     Prepare priv-Esc thanks to OS vulnerability search 	|
+# 										|
+# Revision History  :								|
+# Date        	Author      	Ref	Details info				|
+# 20190509    	Belandil   	 1 	First part is reliable :		|
+#					- Nmap + Searchsploit OS + Kernel	|
+#  					- Gobuster depending on nmap services  	|
+# 0200705	Belandil	2	- Improvment searchsploit		|
+#		 								|
+#										|									|
+#*******************************************************************************|
 
 set -euo pipefail
 IFS=$'\n\t'
@@ -62,8 +63,9 @@ egrep '^[POU]|^[0-9]|^\||^\_' "$pathName"/nmap"$machineName".txt | sed '/OS CPE:
 cat "$pathName"/flaw"$machineName".txt
 
 OS_VERSION=$( egrep '^OS details:' "$pathName"/flaw"$machineName".txt | cut -d ' ' -f 3-4 )
-echo "Searchsploit with the OS VERSION: $OS_VERSION"
-searchsploit Linux Kernel "$OS_VERSION" || grep "-"
+OS=$( cut -d ' ' -f 1 $OS_VERSION )
+echo "Searchsploit the OS $OS with the VERSION: $OS_VERSION"
+searchsploit "$OS_VERSION" || grep $OS
 
 
 serverHeader=$(grep -E 'http-server-header:' "$pathName"/flaw"$machineName".txt | cut -d ' ' -f 2 | sed -e 's/\// /g' | sort -u)
