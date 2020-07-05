@@ -1,4 +1,4 @@
-# #################### DISCLAIMER ################
+# DISCLAIMER ################
 
 I AM NOT RESPONSIBLE ABOUT WHAT YOU DO WITH THIS SCRIPT.
 
