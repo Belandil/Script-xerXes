@@ -1,8 +1,8 @@
-##################################################### DISCLAIMER ################################################ "
+##################### DISCLAIMER ################
 I AM NOT RESPONSIBLE ABOUT WHAT YOU DO WITH THIS SCRIPT."
 THIS SCRIPT IS MADE FOR AUDITORS / PENTESTERS IN ORDER TO SAVE TIME BEFORE ADVANCED STEPS DURING PENTETRATION TESTS.
 BY USING THIS SCRIPT YOU UNDERSTAND AND ARE RESPONSIBLE OF THE CONSEQUENCES IF THINGS GOES WRONG.
-####################################################################################################################"
+#####################################################
 
 Thanks to nmap, xerXes.sh discovers services and their potentials weaknesses on a targeted machine with searchsploit. 
 It enumerates for you directories on a web server and open in a firefox browser directories found.
