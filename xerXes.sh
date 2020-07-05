@@ -76,14 +76,17 @@ serverHeaderLines=$(grep -E 'http-server-header:' "$pathName"/flaw"$machineName"
 i=1
 while [ "$i" -le "$serverHeaderLines" ]; do
 	echo " This is i : $i"
-	serverHeaderLineShift=$(grep -E 'http-server-header:' "$pathName"/flaw"$machineName".txt | cut -d ' ' -f 2 | sed -e 's/\// /g' | sort -u | sed -n "$i"p)
-	echo "serverHeaderLineShift : $serverHeaderLineShift"
-	sleep 5s
+	serverHeaderLineShift=$(grep -E 'http-server-header:' "$pathName"/flaw"$machineName".txt | cut -d ' ' -f 2 | sed -e 's/\// /g' )
+	serverHeader_Name=$( echo $serverHeaderLineShift | cut -d ' ' -f 1 )
+	serverHeader_Version=$( echo $serverHeaderLineShift | cut -d ' ' -f 2 )
+	echo "Info serverHeader : $serverHeaderLineShift"
+	#sleep 5s
 	if [ -n serverHeaderLineShift ]; then
-		searchsploit -e "$serverHeaderLineShift"
+		echo -e '\n *********** Server $serverHeader_Name Vulnerabilities ***********' >>  "$pathName"/vulnerabilities_"$machineName".txt
+		searchsploit -e "$serverHeader_Version" | grep $serverHeader_Name >> "$pathName"/vulnerabilities_"$machineName".txt
 		i=$[$i+1]
 	else
-		echo " NUUUUUUL"
+		echo -e "\n end of Loop"
 	fi
 done
 i=0
