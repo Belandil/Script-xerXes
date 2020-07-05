@@ -18,6 +18,7 @@ I have lot of ideas to improve the script, but missing time those days.
 Thanks to using it and have fun on CTF machines !
 
 USAGE :
+
 ./xerXes.sh $ip $machineName
 
 $ip is the IP address of the targeted machine
