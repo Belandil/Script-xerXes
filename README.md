@@ -1,4 +1,4 @@
-# DISCLAIMER ################
+# DISCLAIMER
 
 I AM NOT RESPONSIBLE ABOUT WHAT YOU DO WITH THIS SCRIPT.
 
@@ -6,8 +6,7 @@ THIS SCRIPT IS MADE FOR AUDITORS / PENTESTERS IN ORDER TO SAVE TIME BEFORE ADVAN
 
 BY USING THIS SCRIPT YOU UNDERSTAND AND ARE RESPONSIBLE OF THE CONSEQUENCES IF THINGS GOES WRONG.
 
-# ####################################################
-
+# Description
 Thanks to nmap, xerXes.sh discovers services and their potentials weaknesses on a targeted machine with searchsploit. 
 
 It enumerates for you directories on a web server and open in a firefox browser directories found.
@@ -21,7 +20,7 @@ I have lot of ideas to improve the script, but missing time those days.
 
 Thanks to using it and have fun on CTF machines !
 
-# USAGE :
+# USAGE
 ./xerXes.sh $ip $machineName
 
 $ip is the IP address of the targeted machine
