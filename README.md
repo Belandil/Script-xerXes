@@ -6,7 +6,7 @@ THIS SCRIPT IS MADE FOR AUDITORS / PENTESTERS IN ORDER TO SAVE TIME BEFORE ADVAN
 
 BY USING THIS SCRIPT YOU UNDERSTAND AND ARE RESPONSIBLE OF THE CONSEQUENCES IF THINGS GOES WRONG.
 
-# Description
+# DESCRIPTION
 Shortly : This script gives you the first picture of the machine that you want to analyse.
 
 Thanks to nmap, xerXes.sh discovers services and their potentials weaknesses on a targeted machine with searchsploit. 
