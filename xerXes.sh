@@ -117,7 +117,7 @@ while [ "$i" -le "$numberLines" ]; do
 	singleWebPort=$(echo This is q: "$q")
 	echo "Single port is : $singleWebPort"
 	echo  "Trying on : http://$ip:$q"
-	gobuster -u "http://$ip:$q" -w /usr/share/dirbuster/wordlists/directory-list-2.3-small.txt > "$pathName"/gobuster"$machineName".txt
+	gobuster dir -u "http://$ip:$q" -w /usr/share/dirbuster/wordlists/directory-list-2.3-small.txt > "$pathName"/gobuster"$machineName".txt
 	echo -e "\v\v" >> "$pathName"/gobuster"$machineName".txt #This is used to carriage return after each gobuster enumeration
 	awk 'BEGIN{RS=ORS="\n\n";FS=OFS="\n"}/'$ip:$q'/' "$pathName"/gobuster"$machineName".txt | grep -E '^/' | sort -k 3,3 >> "$pathName"/gobuster"$machineName"-port"$q".txt # This line will write in file all URL repositories found in gobuster's scan, sort by code status
 	directroriesTotalLines=$(awk 'BEGIN{RS=ORS="\n\n";FS=OFS="\n"}/'$ip:$q'/' "$pathName"/gobuster"$machineName".txt | grep -E '^/' | sort -k 3,3 | wc -l) #same line than upward, returns number of lines
@@ -133,7 +133,7 @@ while [ "$i" -le "$numberLines" ]; do
 		sleep 2s
 		firefox -new-tab "http://$ip:$q$getLines"&
 		j=$[$j+1]
-		echo "New tqb opened : http://$ip:$q$getLines"
+		echo "New tab opened : http://$ip:$q$getLines"
 	done
 	i=$[$i+1]
 done
@@ -145,8 +145,8 @@ cat "$pathName"/gobuster"$machineName".txt
 
 ###########Gobuster is finished, now check if there is a wordpress from Gobuster's results ########### 
 
-portsGobuster=$(grep Url/Domain "$pathName"/gobuster"$machineName".txt | cut -d ':' -f 4 | cut -d '/' -f 1 | sort -u)
-portGobusterLines=$(grep Url/Domain "$pathName"/gobuster"$machineName".txt | cut -d ':' -f 4 | cut -d '/' -f 1 | sort -u | wc -l)
+#portsGobuster=$(grep Url/Domain "$pathName"/gobuster"$machineName".txt | cut -d ':' -f 4 | cut -d '/' -f 1 | sort -u)
+#portGobusterLines=$(grep Url/Domain "$pathName"/gobuster"$machineName".txt | cut -d ':' -f 4 | cut -d '/' -f 1 | sort -u | wc -l)
 
 echo -e "\nThis is the end by 04 June 2019"
 
