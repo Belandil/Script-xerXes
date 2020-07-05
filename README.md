@@ -13,7 +13,7 @@ Thanks to nmap, xerXes.sh discovers services and their potentials weaknesses on 
 
 It enumerates for you directories on a web server and open in a Firefox browser directories found.
 
-It creates local directory and stores reportsinside. It is a script so that why reports are also supposed to be checked if some informations are missing.
+It creates local directory and stores reports inside. It is a script so that why reports are also supposed to be checked if some informations are missing.
 
 
 By the way, if some cases of utilisation are missing, or working wired, please let me know.
