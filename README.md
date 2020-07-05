@@ -12,7 +12,7 @@ Thanks to nmap, xerXes.sh discovers services and their potentials weaknesses on 
 
 It enumerates for you directories on a web server and open in a firefox browser directories found.
 
-It stores reports. It is a script and repports are supposed to be checked if some informations are missing.
+It stores reports. It is a script and reports are supposed to be checked if some informations are missing.
 Shortly : it simplify your tests
 
 By the way, if some cases of utilisation are missing, or working wired, please let me know.
@@ -26,4 +26,4 @@ USAGE :
 
 $ip is the IP address of the targeted machine
 
-$machineName is the name of directories and files created for a good organisation of repports  
+$machineName is the name of directories and files created for a good organisation of reports  
