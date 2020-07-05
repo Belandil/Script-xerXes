@@ -63,9 +63,10 @@ egrep '^[POU]|^[0-9]|^\||^\_' "$pathName"/nmap"$machineName".txt | sed '/OS CPE:
 cat "$pathName"/flaw"$machineName".txt
 
 OS_VERSION=$( egrep '^OS details:' "$pathName"/flaw"$machineName".txt | cut -d ' ' -f 3-4 )
-OS=$( cut -d ' ' -f 1 $OS_VERSION )
+VERSION=$( echo $OS_VERSION | cut -d ' ' -f 2 )
+OS=$( echo $OS_VERSION | cut -d ' ' -f 1 )
 echo "Searchsploit the OS $OS with the VERSION: $OS_VERSION"
-searchsploit "$OS_VERSION" || grep $OS
+searchsploit -e "$VERSION" | grep $OS >  "$pathName"/vulnerabilities_"$machineName".txt
 
 
 serverHeader=$(grep -E 'http-server-header:' "$pathName"/flaw"$machineName".txt | cut -d ' ' -f 2 | sed -e 's/\// /g' | sort -u)
