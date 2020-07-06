@@ -25,9 +25,9 @@ echo -e "\n THIS SCRIPT IS MADE FOR AUDITORS / PENTESTERS IN ORDER TO SAVE TIME 
 echo -e "\n BY USING THIS SCRIPT YOU UNDERSTAND AND RESPONSIBLE OF THE CONSEQUENCES IF THINGS GOES WRONG."
 echo -e "\n ####################################################################################################################"
 
-IFS=${'\n\t'}
+IFS=$'\n\t'
 ip=${1:-}
-machineName="${2:-}"_autoXerxes
+machineName="${2:-}"
 
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -36,7 +36,7 @@ ORANGE='\033[0;33m'
 ENDCOLOR='\e[0m'
 
 if [ -n "$1" ] && [ -n "$2" ]; then
-	echo -e "${GREEN}Variables seems to be seted, let's keep going the script ... ${ENDCOLOR}"
+	echo -e "${GREEN} ... ${ENDCOLOR}"
 else
 	echo -e "${RED}Variables seems to NOT be seted, Script will going wrong ${ENDCOLOR}"
 	exit 1
@@ -49,7 +49,7 @@ a=$( touch "${pathName}"/info"${machineName}".txt )
 b=$( touch "${pathName}"/flaw"${machineName}".txt )
 c=$( touch "${pathName}"/gobuster"${machineName}".txt )
 d=$( touch "${pathName}"/nmap"${machineName}".txt )
-echo "Empty files Created"
+echo "Empty files Created in the following path : "${pathName}"/ "
 
 echo -e "${GREEN}Creating Files in directory${ENDCOLOR}"
 ls -altr "${pathName}"
@@ -57,7 +57,7 @@ ls -altr "${pathName}"
 ### NMAP AREA Starts
 ###########################
 echo "****nmap starting********"
-nmap -A -T5 -v -p- -sS "${ip}" 1> "${pathName}"/nmap"${machineName}".txt
+#nmap -A -T5 -v -p- -sS "${ip}" 1> "${pathName}"/nmap"${machineName}".txt
 ls -al "${pathName}"/nmap"${machineName}".txt
 echo "****nmap Finished*******"
 echo -e "\n\nYour new Nmap File TCP :"
@@ -68,44 +68,52 @@ echo -e "\n"
 egrep '^[POU]|^[0-9]|^\||^\_' "$pathName"/nmap"${machineName}".txt | sed '/OS CPE:/d; /Uptime guess:/,$d' | sed -e "s/[[:space:]]\+/ /g" > "${pathName}"/flaw"${machineName}".txt
 cat "${pathName}"/flaw"${machineName}".txt
 
-OS_VERSION=$( egrep '^OS details:' "${pathName}"/flaw"${machineName}".txt | cut -d ' ' -f 3-4 )
-VERSION=$( echo "${OS_VERSION}" | cut -d ' ' -f 2 )
-OS=$( echo "${OS_VERSION}" | cut -d ' ' -f 1 )
-echo "Searchsploit the OS "${OS}" with the VERSION: "${OS_VERSION}"
+OS_VERSION=$( egrep '^OS details:' "${pathName}"/flaw"${machineName}".txt | cut -d ' ' -f 3-4 ) # get the Os and its version in the same variable
+VERSION=$( echo "${OS_VERSION}" | cut -d ' ' -f 2 ) # get the OS's version
+OS=$( echo "${OS_VERSION}" | cut -d ' ' -f 1 ) # get the OS only
+echo "Searchsploit the OS "${OS}" with the VERSION: "${OS_VERSION}""
+
+echo "${machineName}"
+
 searchsploit -e "${VERSION}" | grep "${OS}" >  "${pathName}"/vulnerabilities_"${machineName}".txt
 
 
-serverHeader=$(grep -E 'http-server-header:' "${pathName}"/flaw"${machineName}".txt | cut -d ' ' -f 2 | sed -e 's/\// /g' | sort -u)
-echo "Searchsploit with the server(s) Header(s): "${serverHeader}"
+serverHeader=$(grep -E 'http-server-header:' "${pathName}"/flaw"${machineName}".txt | cut -d ' ' -f 2 | sed -e 's/\// /g' | sort -u) # get server Headers
+echo "Searchsploit with the server(s) Header(s):" "${serverHeader}"
 serverHeaderLines=$(grep -E 'http-server-header:' "${pathName}"/flaw"${machineName}".txt | cut -d ' ' -f 2 | sed -e 's/\// /g' | sort -u | wc -l)
+echo "serverHeaderLines=$(grep -E 'http-server-header:' "${pathName}"/flaw"${machineName}".txt | cut -d ' ' -f 2 | sed -e 's/\// /g' | sort -u | wc -l)" # get nmumber og server lines ex : Apache + IIS
 
 i=1
 while [ "$i" -le "$serverHeaderLines" ]; do
-	echo " This is i : $i"
-	serverHeaderLineShift=$(grep -E 'http-server-header:' "${pathName}"/flaw"${machineName}".txt | cut -d ' ' -f 2 | sed -e 's/\// /g' )
-	serverHeader_Name=$( echo "${serverHeaderLineShift}" | cut -d ' ' -f 1 )
-	serverHeader_Version=$( echo "${serverHeaderLineShift}" | cut -d ' ' -f 2 )
-	echo "Info serverHeader : "${serverHeaderLineShift}"
-	#sleep 5s
+
+	echo " This is while incrementation value i : $i"
+	serverHeaderLineShift=$(grep -E 'http-server-header:' "${pathName}"/flaw"${machineName}".txt | cut -d ' ' -f 2 | sed -e 's/\// /g' ) # get whole server line + its version
+	echo "${serverHeaderLineShift}"
+	serverHeader_Name=$( echo "${serverHeaderLineShift}" | cut -d ' ' -f 1 ) # get server name only ex : Apache
+	serverHeader_Version=$( echo "${serverHeaderLineShift}" | cut -d ' ' -f 2 ) # get server version with all digits ex : 2.2.8
+	serverHeader=$( echo $serverHeader_Version | cut -d "." -f 1-2 ) # search with 2 major versions ex : 2.2
+
 	if [ -n "${serverHeaderLineShift}" ]; then
-		echo -e '\n *********** Server "${serverHeader_Name}" Vulnerabilities ***********' >>  "${pathName}"/vulnerabilities_"${machineName}".txt
-		searchsploit -e "${serverHeader_Version}" | grep "${serverHeader_Name}" >> "${pathName}"/vulnerabilities_"${machineName}".txt
-		i=$[$i+1]
+		echo -e "\n *********** Server "${serverHeader_Name}" Vulnerabilities ***********" >>  "${pathName}"/vulnerabilities_"${machineName}".txt
+		echo "test"
+		set +e
+		searchsploit -e "${serverHeader_Version}" | grep "${serverHeader_Name}" 2> /dev/null # >> "${pathName}"/vulnerabilities_"${machineName}".txt 2> /dev/null
+		set -e
+		echo "searchsploit -e "${serverHeader_Version}" | grep "${serverHeader_Name}" >> "${pathName}"/vulnerabilities_"${machineName}".txt"
+		i=$(($i+1))
+		echo "qfter"
 	else
 		echo -e "\n end of Loop"
 	fi
 done
 i=0
-
 echo " NMAP AREA FINISHED "
-
 ###########################
 ### NMAP AREA Finished
 ###########################
-
 echo "Before numberLines"
 numberLines=$(grep -E 'open http|open ssl/http' "${pathName}"/flaw"${machineName}".txt  | cut -d "/" -f 1 | wc -l)
-echo "This is numberLines: "${numberLines}"
+echo "This is numberLines: "${numberLines}""
 webPortsOpen=$(grep -E 'open http|open ssl/http' "${pathName}"/flaw"${machineName}".txt  | cut -d "/" -f 1 | tr '\n' ' ')
 echo -e "return value: $? webPortsOpen value : "${webPortsOpen}" numberLines value: "${numberLines}""
 
@@ -115,6 +123,7 @@ echo -e "\n\nThis is number of http|open Lines : "${numberLines}" ; This is webP
 echo "${pathName}"/flaw"${machineName}".txt
 
 echo "GREP FINISHED"
+
 i=1 #used for browse each http services lines in flaw file
 j=1 #used for grab each directories lines in the following file : "$pathName"/gobuster"$machineName"-port"$q".txt
 ########### grabing HTTP or HTTPS services and checks directories
@@ -135,23 +144,17 @@ while [ "$i" -le "$numberLines" ]; do
 		#j=1
 		#echo "Debut j value : $j"
 		getLines=$(grep -E '^/' "${pathName}"/gobuster"${machineName}"-port"$q".txt | sort -k 3,3 | awk '{print $1}' | head -n "$j" | tail -n 1) #browse inside directories file and get each lines depending on j value
-		echo -e "\n The value of getLines is : "${getLines}"
+		echo -e "\n The value of getLines is : "${getLines}""
 		sleep 2s
 		firefox -new-tab "http://$ip:$q$getLines"&
 		j=$[$j+1]
-		echo "New tab opened : http://$ip:$q$getLines"
+		echo "New tab opened : http://$ip:$q"${getLines}""
 	done
 	i=$[$i+1]
 done
-
-
-
 i=0 # reset i for other incrementation
 cat "${pathName}"/gobuster"${machineName}".txt
-
 ###########Gobuster is finished, now check if there is a wordpress from Gobuster's results ########### 
-
 #portsGobuster=$(grep Url/Domain "$pathName"/gobuster"$machineName".txt | cut -d ':' -f 4 | cut -d '/' -f 1 | sort -u)
 #portGobusterLines=$(grep Url/Domain "$pathName"/gobuster"$machineName".txt | cut -d ':' -f 4 | cut -d '/' -f 1 | sort -u | wc -l)
-
 
