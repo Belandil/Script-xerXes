@@ -21,8 +21,8 @@ set -euo pipefail
 
 echo -e "\n ##################################################### DISCLAIMER ################################################ "
 echo -e "\n I AM NOT RESPONSIBLE ABOUT WHAT YOU DO WITH THIS SCRIPT."
-echo -e "\n THIS SCRIPT IS MADE FOR AUDITORS / PENTESTERS IN ORDER TO SAVE TIME BEFORE ADVANCED STEPS DURING PENTETRATION TESTS.
-echo -e "\n BY USING THIS SCRIPT YOU UNDERSTAND AND RESPONSIBLE OF THE CONSEQUENCES IF THINGS GOES WRONG.
+echo -e "\n THIS SCRIPT IS MADE FOR AUDITORS / PENTESTERS IN ORDER TO SAVE TIME BEFORE ADVANCED STEPS DURING PENTETRATION TESTS."
+echo -e "\n BY USING THIS SCRIPT YOU UNDERSTAND AND RESPONSIBLE OF THE CONSEQUENCES IF THINGS GOES WRONG."
 echo -e "\n ####################################################################################################################"
 
 IFS=$'\n\t'
