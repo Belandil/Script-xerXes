@@ -166,7 +166,7 @@ cat "${pathName}"/gobuster"${machineName}".txt
 
 
 ###################################
-### Looking for CMS or template (work in progress)
+### Looking for CMS or template (part in construction)
 ###################################
 
 ###########Gobuster is finished, now check if there is a wordpress from Gobuster's results ########### 
