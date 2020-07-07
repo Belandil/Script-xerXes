@@ -22,7 +22,8 @@ I have lot of ideas to improve the script, but missing time by those time.
 
 Thanks to using it and have fun on CTF machines !
 # Prior installation
-This script is supposed to work on a Kali machine with its wordlists stored in /usr/share/dirbuster/wordlists
+This script is supposed to work on a Kali machine with its wordlists stored in :
+      /usr/share/dirbuster/wordlists
 
 need  following tools :
 
