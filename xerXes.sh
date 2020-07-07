@@ -161,7 +161,7 @@ i=0 # reset i for other incrementation
 cat "${pathName}"/gobuster"${machineName}".txt
 
 ################################
-### Gobuster part finished 
+### Gobuster AREA Finished 
 ################################
 
 
