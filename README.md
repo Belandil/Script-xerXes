@@ -35,11 +35,11 @@ need  following tools :
       searchsploit
       
 # USAGE
-./xerXes.sh $ip $machineName
+      ./xerXes.sh $ip $machineName
 
 $ip is the IP address of the targeted machine
 
 $machineName is the name of directories and files created for a good organisation of reports  
 
 # Exemple
-./xerXes.sh 10.0.0.10 vulnhubMachine-Kioptrix
+      ./xerXes.sh 10.0.0.10 vulnhubMachine-Kioptrix
