@@ -52,9 +52,9 @@ d=$( touch "${pathName}"/nmap"${machineName}".txt )
 #echo ""${GREEN}"Empty files Created in the following path : "${pathName}"/ ; suffixed by : "${machineName}" "${ENDCOLOR}""
 ls -altr "${pathName}"
 
-###########################
+########################
 ### NMAP AREA Starts
-###########################
+########################
 
 echo "****nmap starting********"
 nmap -A -T5 -v -p- -sS "${ip}" 1> "${pathName}"/nmap"${machineName}".txt
@@ -72,9 +72,9 @@ echo -e "\n"
 egrep '^[POU]|^[0-9]|^\||^\_' "$pathName"/nmap"${machineName}".txt | sed '/OS CPE:/d; /Uptime guess:/,$d' | sed -e "s/[[:space:]]\+/ /g" > "${pathName}"/flaw"${machineName}".txt
 cat "${pathName}"/flaw"${machineName}".txt
 
-##############################
+################################
 ### Searchsploit AREA Starts
-##############################
+################################
 
 OS_VERSION=$( egrep '^OS details:' "${pathName}"/flaw"${machineName}".txt | cut -d ' ' -f 3-4 ) # get the Os and its version in the same variable
 VERSION=$( echo "${OS_VERSION}" | cut -d ' ' -f 2 ) # get the OS's version
@@ -112,8 +112,13 @@ while [ "$i" -le "$serverHeaderLines" ]; do
 done
 i=0
 
-################################
+#################################
 ### Searchsploit AREA Finished
+#################################
+
+################################
+### Search directories with 
+### Gobuster on ports found.
 ################################
 
 numberLines=$(grep -E 'open http|open ssl/http' "${pathName}"/flaw"${machineName}".txt  | cut -d "/" -f 1 | wc -l)
@@ -154,6 +159,16 @@ while [ "$i" -le "$numberLines" ]; do
 done
 i=0 # reset i for other incrementation
 cat "${pathName}"/gobuster"${machineName}".txt
+
+################################
+### Gobuster part finished 
+################################
+
+
+###################################
+### Looking for CMS or template (work in progress)
+###################################
+
 ###########Gobuster is finished, now check if there is a wordpress from Gobuster's results ########### 
 #portsGobuster=$(grep Url/Domain "$pathName"/gobuster"$machineName".txt | cut -d ':' -f 4 | cut -d '/' -f 1 | sort -u)
 #portGobusterLines=$(grep Url/Domain "$pathName"/gobuster"$machineName".txt | cut -d ':' -f 4 | cut -d '/' -f 1 | sort -u | wc -l)
