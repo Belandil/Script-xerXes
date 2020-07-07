@@ -49,7 +49,7 @@ a=$( touch "${pathName}"/info"${machineName}".txt )
 b=$( touch "${pathName}"/flaw"${machineName}".txt )
 c=$( touch "${pathName}"/gobuster"${machineName}".txt )
 d=$( touch "${pathName}"/nmap"${machineName}".txt )
-echo ""${GREEN}"Empty files Created in the following path : "${pathName}"/ ; suffixed by : "${machineName} "${ENDCOLOR}""
+#echo ""${GREEN}"Empty files Created in the following path : "${pathName}"/ ; suffixed by : "${machineName}" "${ENDCOLOR}""
 ls -altr "${pathName}"
 
 ###########################
@@ -57,7 +57,7 @@ ls -altr "${pathName}"
 ###########################
 
 echo "****nmap starting********"
-#nmap -A -T5 -v -p- -sS "${ip}" 1> "${pathName}"/nmap"${machineName}".txt
+nmap -A -T5 -v -p- -sS "${ip}" 1> "${pathName}"/nmap"${machineName}".txt
 ls -al "${pathName}"/nmap"${machineName}".txt
 echo "****nmap Finished*******"
 echo -e "\n\nYour new Nmap File TCP :"
