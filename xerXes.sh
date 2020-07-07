@@ -64,9 +64,17 @@ echo -e "\n\nYour new Nmap File TCP :"
 ls -al "${pathName}"/nmap"${machineName}".txt
 echo -e "\n"
 
+###########################
+### NMAP AREA Finished
+###########################
+
 ### Comment for next line : grep lines becoming by P || O || U || 0-9|| _ || | then sed OS CPE + Uptime until last line (useless lines) + replace random spaces between words by 1 space 
 egrep '^[POU]|^[0-9]|^\||^\_' "$pathName"/nmap"${machineName}".txt | sed '/OS CPE:/d; /Uptime guess:/,$d' | sed -e "s/[[:space:]]\+/ /g" > "${pathName}"/flaw"${machineName}".txt
 cat "${pathName}"/flaw"${machineName}".txt
+
+##############################
+### Searchsploit AREA Starts
+##############################
 
 OS_VERSION=$( egrep '^OS details:' "${pathName}"/flaw"${machineName}".txt | cut -d ' ' -f 3-4 ) # get the Os and its version in the same variable
 VERSION=$( echo "${OS_VERSION}" | cut -d ' ' -f 2 ) # get the OS's version
@@ -101,16 +109,16 @@ while [ "$i" -le "$serverHeaderLines" ]; do
 		set -e
 		echo "searchsploit -e "${serverHeader_Version}" | grep "${serverHeader_Name}" >> "${pathName}"/vulnerabilities_"${machineName}".txt"
 		i=$(($i+1))
-		echo "qfter"
 	else
 		echo -e "\n end of Loop"
 	fi
 done
 i=0
-echo " NMAP AREA FINISHED "
-###########################
-### NMAP AREA Finished
-###########################
+
+################################
+### Searchsploit AREA Finished
+################################
+
 echo "Before numberLines"
 numberLines=$(grep -E 'open http|open ssl/http' "${pathName}"/flaw"${machineName}".txt  | cut -d "/" -f 1 | wc -l)
 echo "This is numberLines: "${numberLines}""
@@ -121,8 +129,6 @@ echo -e "\nThis is webPortsOpen: ""${webPortsOpen}"
 echo -e "\n\nThis is number of http|open Lines : "${numberLines}" ; This is webPortsOpen: "${webPortsOpen}" and this is retrurn $?"
 
 echo "${pathName}"/flaw"${machineName}".txt
-
-echo "GREP FINISHED"
 
 i=1 #used for browse each http services lines in flaw file
 j=1 #used for grab each directories lines in the following file : "$pathName"/gobuster"$machineName"-port"$q".txt
