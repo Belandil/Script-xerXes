@@ -49,13 +49,13 @@ a=$( touch "${pathName}"/info"${machineName}".txt )
 b=$( touch "${pathName}"/flaw"${machineName}".txt )
 c=$( touch "${pathName}"/gobuster"${machineName}".txt )
 d=$( touch "${pathName}"/nmap"${machineName}".txt )
-echo "Empty files Created in the following path : "${pathName}"/ "
-
-echo -e "${GREEN}Creating Files in directory${ENDCOLOR}"
+echo ""${GREEN}"Empty files Created in the following path : "${pathName}"/ ; suffixed by : "${machineName} "${ENDCOLOR}""
 ls -altr "${pathName}"
+
 ###########################
 ### NMAP AREA Starts
 ###########################
+
 echo "****nmap starting********"
 #nmap -A -T5 -v -p- -sS "${ip}" 1> "${pathName}"/nmap"${machineName}".txt
 ls -al "${pathName}"/nmap"${machineName}".txt
@@ -81,10 +81,7 @@ VERSION=$( echo "${OS_VERSION}" | cut -d ' ' -f 2 ) # get the OS's version
 OS=$( echo "${OS_VERSION}" | cut -d ' ' -f 1 ) # get the OS only
 echo "Searchsploit the OS "${OS}" with the VERSION: "${OS_VERSION}""
 
-echo "${machineName}"
-
 searchsploit -e "${VERSION}" | grep "${OS}" >  "${pathName}"/vulnerabilities_"${machineName}".txt
-
 
 serverHeader=$(grep -E 'http-server-header:' "${pathName}"/flaw"${machineName}".txt | cut -d ' ' -f 2 | sed -e 's/\// /g' | sort -u) # get server Headers
 echo "Searchsploit with the server(s) Header(s):" "${serverHeader}"
@@ -104,8 +101,8 @@ while [ "$i" -le "$serverHeaderLines" ]; do
 	if [ -n "${serverHeaderLineShift}" ]; then
 		echo -e "\n *********** Server "${serverHeader_Name}" Vulnerabilities ***********" >>  "${pathName}"/vulnerabilities_"${machineName}".txt
 		echo "test"
-		set +e
-		searchsploit -e "${serverHeader_Version}" | grep "${serverHeader_Name}" 2> /dev/null # >> "${pathName}"/vulnerabilities_"${machineName}".txt 2> /dev/null
+		set +e # force to run searchsploit whatever happens
+		searchsploit -e "${serverHeader_Version}" | grep "${serverHeader_Name}" >> "${pathName}"/vulnerabilities_"${machineName}".txt
 		set -e
 		echo "searchsploit -e "${serverHeader_Version}" | grep "${serverHeader_Name}" >> "${pathName}"/vulnerabilities_"${machineName}".txt"
 		i=$(($i+1))
@@ -119,7 +116,6 @@ i=0
 ### Searchsploit AREA Finished
 ################################
 
-echo "Before numberLines"
 numberLines=$(grep -E 'open http|open ssl/http' "${pathName}"/flaw"${machineName}".txt  | cut -d "/" -f 1 | wc -l)
 echo "This is numberLines: "${numberLines}""
 webPortsOpen=$(grep -E 'open http|open ssl/http' "${pathName}"/flaw"${machineName}".txt  | cut -d "/" -f 1 | tr '\n' ' ')
@@ -145,10 +141,8 @@ while [ "$i" -le "$numberLines" ]; do
 	echo -e "\n number of directories lines: $directroriesTotalLines"
 	
 	echo -e "\n These are directroriesTotalLines : $directroriesTotalLines and this is j : $j"
-	#sleep 5s
+	
 	while [ "$j" -le "$directroriesTotalLines" ]; do
-		#j=1
-		#echo "Debut j value : $j"
 		getLines=$(grep -E '^/' "${pathName}"/gobuster"${machineName}"-port"$q".txt | sort -k 3,3 | awk '{print $1}' | head -n "$j" | tail -n 1) #browse inside directories file and get each lines depending on j value
 		echo -e "\n The value of getLines is : "${getLines}""
 		sleep 2s
