@@ -7,18 +7,18 @@ THIS SCRIPT IS MADE FOR AUDITORS / PENTESTERS IN ORDER TO SAVE TIME BEFORE ADVAN
 BY USING THIS SCRIPT YOU UNDERSTAND AND ARE RESPONSIBLE OF THE CONSEQUENCES IF THINGS GOES WRONG.
 
 # DESCRIPTION
-Shortly : This script gives you the first picture of the machine that you want to analyse.
+Shortly : This script gives you the first picture of a machine that you want to analyse.
 
-Thanks to nmap, xerXes.sh discovers services and their potentials weaknesses on a targeted machine with searchsploit. 
+Thanks to nmap, xerXes.sh discovers services and their potentials weaknesses on a targeted machine. 
 
-It enumerates for you directories on a web server and open in a Firefox browser directories found.
+It enumerates for you directories on a web server and open in a Firefox browser if directories found.
 
-It creates local directory and stores reports inside. It is a script so that why reports are also supposed to be checked if some informations are missing.
+It creates local directory and stores reports inside. It is a script so that's why reports are also supposed to be checked if some informations are missing.
 
 
-By the way, if some cases of utilisation are missing, or working wired, please let me know.
+By the way, if some use cases are missing, or working wired, please let me know.
 
-I have lot of ideas to improve the script, but missing time by those time. 
+I have lot of ideas to improve the script, but missing time by those days. 
 
 Thanks to using it and have fun on CTF machines !
 # Prior installation
